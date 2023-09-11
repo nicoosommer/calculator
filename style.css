@@ -1,0 +1,37 @@
+html {
+  background-color: rgb(128, 216, 216);
+}
+.calc {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.container {
+  background-color: rgb(54, 50, 50);
+  width: 450px;
+  height: 500px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: flex-start;
+  gap: 2px;
+  border: 10px black solid;
+}
+.display {
+  background-color: rgb(90, 108, 124);
+  width: 450px;
+  height: 20%;
+}
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 80%;
+}
+.nmbs,
+.oprs {
+  /* background-color: aqua; */
+  width: 25%;
+  height: 20%;
+}
