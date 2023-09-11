@@ -19,10 +19,14 @@ html {
   border: 10px black solid;
 }
 .display {
+  box-sizing: border-box;
   background-color: rgb(90, 108, 124);
   width: 450px;
   height: 20%;
+  padding: 10px;
+  word-wrap: break-word;
 }
+
 .buttons {
   display: flex;
   flex-wrap: wrap;
@@ -30,8 +34,16 @@ html {
   height: 80%;
 }
 .nmbs,
-.oprs {
+.oprs,
+.punto {
   /* background-color: aqua; */
   width: 25%;
   height: 20%;
+}
+.nmbs,
+.punto {
+  background-color: orangered;
+}
+.oprs {
+  background-color: rgb(49, 117, 117);
 }
