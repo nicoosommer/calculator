@@ -53,3 +53,22 @@ masmenos.addEventListener("click", () => {
     display.textContent = display.textContent.slice(1);
   }
 });
+function operadores() {
+  num1 = Number(display.textContent);
+  operator = e.target.innerText;
+  display.textContent = "";
+}
+const oprs = document.querySelectorAll(".oprs");
+for (let i = 0; i < oprs.length; i++) {
+  oprs[i].addEventListener("click", (e) => {
+    num1 = Number(display.textContent);
+    operator = e.target.innerText;
+    display.textContent = "";
+  });
+}
+
+const igual = document.querySelector("#igual");
+igual.addEventListener("click", () => {
+  num2 = Number(display.textContent);
+  display.textContent = operate(num1, num2, operator);
+});

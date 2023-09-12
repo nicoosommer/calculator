@@ -35,7 +35,8 @@ html {
 }
 .nmbs,
 .oprs,
-.punto {
+.punto,
+.extras {
   /* background-color: aqua; */
   width: 25%;
   height: 20%;
@@ -44,6 +45,7 @@ html {
 .punto {
   background-color: orangered;
 }
-.oprs {
+.oprs,
+.extras {
   background-color: rgb(49, 117, 117);
 }
