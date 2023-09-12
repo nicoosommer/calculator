@@ -11,18 +11,24 @@ function multiply(a, b) {
 function divide(a, b) {
   return a / b;
 }
-let num1 = 0;
-let operator = 0;
-let num2 = 0;
+function power(a, b) {
+  return a ** b;
+}
+let num1 = null;
+let operator = null;
+let num2 = null;
 
 function operate(a, b, op) {
   if (op == "+") return add(a, b);
   if (op == "-") return subtract(a, b);
   if (op == "*") return multiply(a, b);
   if (op == "/") return divide(a, b);
+  if (op == "^") return power(a, b);
 }
 
 const display = document.querySelector(".display");
+const arriba = document.querySelector(".arriba");
+const abajo = document.querySelector(".abajo");
 const nums = document.querySelectorAll(".nmbs");
 const ac = document.querySelector("#ac");
 const punto = document.querySelector(".punto");
@@ -31,44 +37,54 @@ const borrar = document.querySelector(".borrar");
 
 for (num of nums) {
   num.addEventListener("click", (e) => {
-    display.textContent += e.target.innerText;
+    arriba.textContent += e.target.innerText;
+    abajo.textContent += e.target.innerText;
   });
 }
 ac.addEventListener("click", () => {
-  display.textContent = "";
+  arriba.textContent = "";
+  num1 = null;
+  num2 = null;
+  operator = null;
 });
 punto.addEventListener("click", (e) => {
-  const arr = display.textContent.split("");
+  const arr = arriba.textContent.split("");
   if (arr.includes(".") === true) return;
-  display.textContent += e.target.innerText;
+  arriba.textContent += e.target.innerText;
 });
 borrar.addEventListener("click", () => {
-  display.textContent = display.textContent.slice(0, -1);
+  arriba.textContent = arriba.textContent.slice(0, -1);
 });
 
 masmenos.addEventListener("click", () => {
-  if (display.textContent[0] !== "-") {
-    display.textContent = "-" + display.textContent;
+  if (arriba.textContent[0] !== "-") {
+    arriba.textContent = "-" + arriba.textContent;
   } else {
-    display.textContent = display.textContent.slice(1);
+    arriba.textContent = arriba.textContent.slice(1);
   }
 });
-function operadores() {
-  num1 = Number(display.textContent);
-  operator = e.target.innerText;
-  display.textContent = "";
-}
 const oprs = document.querySelectorAll(".oprs");
 for (let i = 0; i < oprs.length; i++) {
   oprs[i].addEventListener("click", (e) => {
-    num1 = Number(display.textContent);
-    operator = e.target.innerText;
-    display.textContent = "";
+    abajo.textContent += e.target.innerText;
+    if (num1 !== null) {
+      num2 = Number(arriba.textContent);
+      num1 = operate(num1, num2, operator);
+      operator = e.target.innerText;
+      arriba.textContent = "";
+    } else {
+      num1 = Number(arriba.textContent);
+      operator = e.target.innerText;
+      arriba.textContent = "";
+    }
   });
 }
 
 const igual = document.querySelector("#igual");
 igual.addEventListener("click", () => {
-  num2 = Number(display.textContent);
-  display.textContent = operate(num1, num2, operator);
+  num2 = Number(arriba.textContent);
+  arriba.textContent = operate(num1, num2, operator);
+  num1 = null;
+  num2 = null;
+  operator = null;
 });

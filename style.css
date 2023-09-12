@@ -25,8 +25,13 @@ html {
   height: 20%;
   padding: 10px;
   word-wrap: break-word;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
-
+.abajo {
+  align-self: flex-end;
+}
 .buttons {
   display: flex;
   flex-wrap: wrap;
