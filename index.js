@@ -43,6 +43,7 @@ for (num of nums) {
 }
 ac.addEventListener("click", () => {
   arriba.textContent = "";
+  abajo.textContent = "";
   num1 = null;
   num2 = null;
   operator = null;
@@ -54,6 +55,7 @@ punto.addEventListener("click", (e) => {
 });
 borrar.addEventListener("click", () => {
   arriba.textContent = arriba.textContent.slice(0, -1);
+  abajo.textContent = abajo.textContent.slice(0, -1);
 });
 
 masmenos.addEventListener("click", () => {
@@ -84,6 +86,7 @@ const igual = document.querySelector("#igual");
 igual.addEventListener("click", () => {
   num2 = Number(arriba.textContent);
   arriba.textContent = operate(num1, num2, operator);
+  abajo.textContent = arriba.textContent;
   num1 = null;
   num2 = null;
   operator = null;
