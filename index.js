@@ -35,11 +35,12 @@ const punto = document.querySelector(".punto");
 const masmenos = document.querySelector("#masmenos");
 const borrar = document.querySelector(".borrar");
 
+function agregarNum(e) {
+  arriba.textContent += e.target.innerText;
+  abajo.textContent += e.target.innerText;
+}
 for (num of nums) {
-  num.addEventListener("click", (e) => {
-    arriba.textContent += e.target.innerText;
-    abajo.textContent += e.target.innerText;
-  });
+  num.addEventListener("click", agregarNum);
 }
 ac.addEventListener("click", () => {
   arriba.textContent = "";
@@ -66,28 +67,52 @@ masmenos.addEventListener("click", () => {
   }
 });
 const oprs = document.querySelectorAll(".oprs");
+function operadores(e) {
+  let target = 0;
+  if (e.key === undefined) {
+    target = e.target.innerText;
+  } else {
+    target = e.key;
+  }
+  abajo.textContent += target;
+  if (num1 !== null) {
+    num2 = Number(arriba.textContent);
+    num1 = operate(num1, num2, operator);
+    operator = target;
+    arriba.textContent = "";
+  } else {
+    num1 = Number(arriba.textContent);
+    operator = target;
+    arriba.textContent = "";
+  }
+}
 for (let i = 0; i < oprs.length; i++) {
-  oprs[i].addEventListener("click", (e) => {
-    abajo.textContent += e.target.innerText;
-    if (num1 !== null) {
-      num2 = Number(arriba.textContent);
-      num1 = operate(num1, num2, operator);
-      operator = e.target.innerText;
-      arriba.textContent = "";
-    } else {
-      num1 = Number(arriba.textContent);
-      operator = e.target.innerText;
-      arriba.textContent = "";
-    }
-  });
+  oprs[i].addEventListener("click", operadores);
 }
 
 const igual = document.querySelector("#igual");
-igual.addEventListener("click", () => {
+function equal() {
   num2 = Number(arriba.textContent);
   arriba.textContent = operate(num1, num2, operator);
   abajo.textContent = arriba.textContent;
   num1 = null;
   num2 = null;
   operator = null;
-});
+}
+igual.addEventListener("click", equal);
+
+//SOPORTE TECLADO
+window.addEventListener("keydown", tecladito);
+function tecladito(e) {
+  if (!isNaN(e.key))
+    return (arriba.textContent += e.key), (abajo.textContent += e.key);
+  if (
+    e.key === "+" ||
+    e.key === "-" ||
+    e.key === "*" ||
+    e.key === "/" ||
+    e.key === "^"
+  )
+    return operadores(e);
+  if (e.key === "Enter") return equal();
+}
