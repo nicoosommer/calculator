@@ -36,8 +36,14 @@ const masmenos = document.querySelector("#masmenos");
 const borrar = document.querySelector(".borrar");
 
 function agregarNum(e) {
-  arriba.textContent += e.target.innerText;
-  abajo.textContent += e.target.innerText;
+  let target = 0;
+  if (e.key === undefined) {
+    target = e.target.innerText;
+  } else {
+    target = e.key;
+  }
+  if (arriba.textContent.length <= 60) arriba.textContent += target;
+  if (abajo.textContent.length <= 30) abajo.textContent += target;
 }
 for (num of nums) {
   num.addEventListener("click", agregarNum);
@@ -54,10 +60,11 @@ punto.addEventListener("click", (e) => {
   if (arr.includes(".") === true) return;
   arriba.textContent += e.target.innerText;
 });
-borrar.addEventListener("click", () => {
+function borrarr() {
   arriba.textContent = arriba.textContent.slice(0, -1);
   abajo.textContent = abajo.textContent.slice(0, -1);
-});
+}
+borrar.addEventListener("click", borrarr);
 
 masmenos.addEventListener("click", () => {
   if (arriba.textContent[0] !== "-") {
@@ -68,6 +75,15 @@ masmenos.addEventListener("click", () => {
 });
 const oprs = document.querySelectorAll(".oprs");
 function operadores(e) {
+  const evalu = abajo.textContent[abajo.textContent.length - 1];
+  if (
+    evalu === "+" ||
+    evalu === "-" ||
+    evalu === "*" ||
+    evalu === "/" ||
+    evalu === "^"
+  )
+    return;
   let target = 0;
   if (e.key === undefined) {
     target = e.target.innerText;
@@ -104,8 +120,7 @@ igual.addEventListener("click", equal);
 //SOPORTE TECLADO
 window.addEventListener("keydown", tecladito);
 function tecladito(e) {
-  if (!isNaN(e.key))
-    return (arriba.textContent += e.key), (abajo.textContent += e.key);
+  if (!isNaN(e.key)) return agregarNum(e);
   if (
     e.key === "+" ||
     e.key === "-" ||
@@ -115,4 +130,5 @@ function tecladito(e) {
   )
     return operadores(e);
   if (e.key === "Enter") return equal();
+  if (e.key === "Backspace") return borrarr();
 }
